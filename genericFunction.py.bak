@@ -1,0 +1,79 @@
+class Numero:
+    def __init__(self,lista,reverse=False):
+        self.lista=lista
+        self.reverse=reverse
+
+    def ordenar(self):
+        tamanio=len(self.lista)
+        for i in range(0,tamanio-1):
+            for j in range(i+1,tamanio):
+                estado = self.lista[i]<self.lista[j] if self.reverse else self.lista[i]>self.lista[j]
+                if estado:
+                    aux=self.lista[i]
+                    self.lista[i]=self.lista[j]
+                    self.lista[j]=aux
+    
+    def imprimir(self):
+        for i in self.lista:
+            print(i , end=' ')
+        print()
+
+class Tupla:
+    def __init__(self,lista,reverse=False,indice=0):
+        self.lista=lista
+        self.indice=indice
+        self.reverse=reverse
+
+    def ordenar(self):
+        tamanio = len(self.lista)
+        for i in range(0, tamanio-1):
+            for j in range(i+1, tamanio):
+                estado = self.lista[i][self.indice]<=self.lista[j][self.indice] if self.reverse else self.lista[i][self.indice]>=self.lista[j][self.indice]
+                if estado:
+                    if self.indice==1 and self.lista[i][self.indice]==self.lista[j][self.indice]:
+                        if self.lista[i][0]>self.lista[j][0]:
+                            aux = self.lista[i]
+                            self.lista[i] = self.lista[j]
+                            self.lista[j] = aux
+                    else:
+                        aux = self.lista[i]
+                        self.lista[i] = self.lista[j]
+                        self.lista[j] = aux
+
+    def imprimir(self):
+        for i in self.lista:
+            print(i , end=' ')
+        print()
+       
+def ordenar(objeto):
+    objeto.ordenar()
+
+def imprimir(objeto):
+    objeto.imprimir()
+
+numeros =[645.41, 37.59, 76.41, 5.31, -34.23, 1.11, 1.10, 23.46, 635.47, -876.32, 467.83, 62.25]
+personas=[("Hal", 20), ("Susann", 31), ("Dwight", 19), ("Kassandra", 21), ("Lawrence", 25), 
+("Cindy", 22), ("Cory", 27), ("Mac", 19), ("Romana", 27), ("Doretha", 32), ("Danna", 20),
+ ("Zara", 23), ("Rosalyn", 26), ("Risa", 24), ("Benny", 28), ("Juan", 33), ("Natalie", 25)]
+
+numeros=Numero(numeros)
+personas=Tupla(personas)
+
+#1. ordenar numeros en ascendiente por el valor del numero
+print("ordenar numeros en ascendiente por el valor del numero")
+ordenar(numeros)
+imprimir(numeros)
+
+#2.  Ordenar las personas en orden alfabetico (lexicographically) por nomber 
+print("\n\nOrdenar las personas en orden alfabetico (lexicographically) por nomber")
+ordenar(personas)
+imprimir(personas)
+
+#3. Ordernar las personas en orden descendiente por edad, donde una persona de la misma edad
+#  deberia estar ordenada en orden alfabetico (lexicographically).
+print("\n\nOrdernar las personas en orden descendiente por edad, donde una persona de la misma edad deberia\n estar ordenada en orden alfabetico (lexicographically)")
+personas.indice=1
+personas.reverse=True
+ordenar(personas)
+imprimir(personas)
+
